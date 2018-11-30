@@ -55,6 +55,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.plaf.ComponentInputMapUIResource;
 import javax.swing.plaf.UIResource;
+import javax.swing.plaf.synth.SynthLookAndFeel;
 import javax.swing.text.html.HTMLDocument;
 
 import org.jdesktop.swingx.painter.Painter;
@@ -166,7 +167,7 @@ public final class SwingXUtilities {
         // this prevents issues with buffer reuse where visual artifacts sneak in
         if (comp.isOpaque()
                 || (comp instanceof AlphaPaintable && ((AlphaPaintable) comp).getAlpha() < 1f)
-                || UIManager.getLookAndFeel().getID().equals("Nimbus")) {
+                ||  UIManager.getLookAndFeel() instanceof SynthLookAndFeel) {
             g.setColor(comp.getBackground());
             g.fillRect(0, 0, comp.getWidth(), comp.getHeight());
         }
