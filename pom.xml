@@ -1,43 +1,31 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <parent>
-    <groupId>net.java</groupId>
-    <artifactId>jvnet-parent</artifactId>
-    <version>3</version>
-  </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.swinglabs.swingx</groupId>
   <artifactId>swingx-project</artifactId>
   <packaging>pom</packaging>
   <name>SwingX</name>
   <version>1.6.6-SNAPSHOT</version>
-  <url>http://www.swinglabs.org/</url>
-  <ciManagement>
-    <system>Hudson</system>
-    <url>http://swinglabs.org/hudson</url>
-  </ciManagement>
+  <url>https://github.com/swimmesberger/swing</url>
+  <description>Contains extensions to the Swing GUI toolkit, including new and enhanced components that provide functionality commonly required by rich client applications.</description>
   <licenses>
     <license>
       <name>Lesser General Public License (LGPL)</name>
       <url>http://www.gnu.org/copyleft/lesser.html</url>
     </license>
   </licenses>
-  <issueManagement>
-    <system>JIRA</system>
-    <url>http://java.net/jira/browse/SWINGX</url>
-  </issueManagement>
   <scm>
-    <connection>scm:svn:https://svn.java.net/svn/swingx~svn/trunk</connection>
-    <developerConnection>scm:svn:https://svn.java.net/svn/swingx~svn/trunk</developerConnection>
-    <url>https://svn.java.net/svn/swingx~svn/trunk</url>
+    <connection>scm:git:https://github.com/swimmesberger/swingx.git</connection>
+    <developerConnection>scm:git:https://github.com/swimmesberger/swingx.git</developerConnection>
+    <url>https://github.com/swimmesberger/swingx</url>
   </scm>
-  <description>Contains extensions to the Swing GUI toolkit, including new and enhanced components that provide functionality commonly required by rich client applications.</description>
   <build>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
-        <version>2.9</version>
+        <version>3.0.1</version>
         <configuration>
+          <doclint>none</doclint>
           <tags>
             <tag>
               <!-- implementation tag for methods -->
@@ -53,6 +41,14 @@
             </tag>
           </tags>
         </configuration>
+        <executions>
+          <execution>
+            <id>attach-javadocs</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -68,7 +64,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
-        <version>2.13</version>
+        <version>2.22.1</version>
         <inherited>true</inherited>
         <configuration>
           <!-- parallel>classes</parallel -->
@@ -84,7 +80,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
-        <version>2.3.2</version>
+        <version>3.1.0</version>
         <configuration>
           <archive>
             <manifest>
@@ -96,8 +92,11 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-release-plugin</artifactId>
-        <!-- version inherited from parent (2.1) -->
+        <version>2.5.3</version>
         <configuration>
+          <mavenExecutorId>forked-path</mavenExecutorId>
+          <useReleaseProfile>false</useReleaseProfile>
+          <arguments>-Prelease ${release.arguments}</arguments>
           <autoVersionSubmodules>true</autoVersionSubmodules>
         </configuration>
       </plugin>
@@ -110,7 +109,7 @@
         maintains correct services across all modules -->
       <groupId>org.kohsuke.metainf-services</groupId>
       <artifactId>metainf-services</artifactId>
-      <version>1.3</version>
+      <version>1.8</version>
       <type>jar</type>
       <scope>compile</scope>
       <optional>true</optional>
@@ -148,6 +147,7 @@
     </dependencies>
   </dependencyManagement>
   <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.generatedSourcesDirectory>${project.build.directory}/generated-sources</project.generatedSourcesDirectory>
     <project.generatedAnnotations>${project.generatedSourcesDirectory}/annotations</project.generatedAnnotations>
   </properties>
@@ -167,4 +167,40 @@
     <!-- module>swingx-experimental</module -->
     <!-- module>swingx-demos</module -->
   </modules>
+  <profiles>
+    <profile>
+      <id>release</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-source-plugin</artifactId>
+            <version>3.0.1</version>
+            <executions>
+              <execution>
+              <id>attach-sources</id>
+              <goals>
+                <goal>jar-no-fork</goal>
+              </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <version>1.6</version>
+            <executions>
+              <execution>
+              <id>sign-artifacts</id>
+              <phase>verify</phase>
+              <goals>
+              <goal>sign</goal>
+              </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 </project>
