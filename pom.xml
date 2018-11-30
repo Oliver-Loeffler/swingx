@@ -14,8 +14,8 @@
     </license>
   </licenses>
   <scm>
-    <connection>scm:git:https://github.com/swimmesberger/swingx.git</connection>
-    <developerConnection>scm:git:https://github.com/swimmesberger/swingx.git</developerConnection>
+    <connection>scm:git:git@github.com:swimmesberger/swingx</connection>
+    <developerConnection>scm:git:git@github.com:swimmesberger/swingx.gitscm:git</developerConnection>
     <url>https://github.com/swimmesberger/swingx</url>
   </scm>
   <build>
