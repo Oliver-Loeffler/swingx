@@ -4,7 +4,7 @@
   <artifactId>swingx-project</artifactId>
   <packaging>pom</packaging>
   <name>SwingX</name>
-  <version>1.6.7-SNAPSHOT</version>
+  <version>1.6.8-SNAPSHOT</version>
   <url>https://github.com/swimmesberger/swing</url>
   <description>Contains extensions to the Swing GUI toolkit, including new and enhanced components that provide functionality commonly required by rich client applications.</description>
   <licenses>
@@ -14,10 +14,19 @@
     </license>
   </licenses>
   <scm>
-    <connection>scm:git:git@github.com:swimmesberger/swingx</connection>
-    <developerConnection>scm:git:git@github.com:swimmesberger/swingx.gitscm:git</developerConnection>
+    <connection>scm:git:git@github.com:swimmesberger/swingx.git</connection>
+    <developerConnection>scm:git:git@github.com:swimmesberger/swingx.git</developerConnection>
     <url>https://github.com/swimmesberger/swingx</url>
   </scm>
+  <developers>
+    <developer>
+      <id>swimmesberger</id>
+      <name>Simon Wimmesberger</name>
+      <email>contact@swimmesberger.at</email>
+      <url>https://swimmesberger.at</url>
+      <timezone>Europe/Vienna</timezone>
+    </developer>
+  </developers>
   <distributionManagement>
     <snapshotRepository>
       <id>ossrh</id>
