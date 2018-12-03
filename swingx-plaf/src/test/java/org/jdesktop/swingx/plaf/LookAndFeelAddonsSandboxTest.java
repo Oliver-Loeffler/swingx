@@ -62,7 +62,7 @@ public class LookAndFeelAddonsSandboxTest extends TestCase {
     @Test
     public void testSystemAddon() {
         // does not work on CI servers
-        if(System.getenv("CI").toLowerCase().equals("true")) {
+        if(System.getenv("CI") != null && "true".equals(System.getenv("CI").toLowerCase())) {
             return;
         }
         LookAndFeelAddons addon = LookAndFeelAddons.getAddon();

@@ -32,6 +32,7 @@ import javax.swing.Icon;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
+import javax.swing.plaf.PanelUI;
 
 import org.jdesktop.beans.JavaBean;
 import org.jdesktop.swingx.plaf.LookAndFeelAddons;
@@ -283,6 +284,11 @@ public class JXTaskPane extends JPanel implements
    */
   public void setUI(TaskPaneUI ui) {
     super.setUI(ui);
+  }
+  
+  @Override
+  public TaskPaneUI getUI() {
+    return (TaskPaneUI) super.getUI();
   }
 
   /**

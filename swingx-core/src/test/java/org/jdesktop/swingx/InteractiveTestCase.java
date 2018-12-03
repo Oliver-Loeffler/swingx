@@ -632,6 +632,6 @@ public abstract class InteractiveTestCase extends junit.framework.TestCase {
     }
     
     public static boolean isCI() {
-        return System.getenv("CI").toLowerCase().equals("true");
+        return System.getenv("CI") != null && "true".equals(System.getenv("CI").toLowerCase());
     }
 }

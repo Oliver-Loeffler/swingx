@@ -20,7 +20,6 @@
       <artifactId>swingx-graphics</artifactId>
       <version>${project.version}</version>
       <type>jar</type>
-      <scope>compile</scope>
       <optional>true</optional>
     </dependency>
     <dependency>
@@ -28,7 +27,6 @@
       <artifactId>swingx-core</artifactId>
       <version>${project.version}</version>
       <type>jar</type>
-      <scope>compile</scope>
       <optional>true</optional>
     </dependency>
     <dependency>
@@ -36,74 +34,68 @@
       <artifactId>swingx-mavensupport</artifactId>
       <version>${project.version}</version>
       <type>jar</type>
-      <scope>compile</scope>
       <optional>true</optional>
     </dependency>
   </dependencies>
-  <profiles>
-    <profile>
-      <id>release</id>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-dependency-plugin</artifactId>
-            <version>3.1.1</version>
-            <executions>
-              <execution>
-                <id>src-dependencies</id>
-                <phase>generate-sources</phase>
-                <goals>
-                  <goal>unpack-dependencies</goal>
-                </goals>
-                <configuration>
-                  <classifier>sources</classifier>
-                  <includeGroupIds>${project.groupId}</includeGroupIds>
-                  <excludeArtifactIds>swingx-mavensupport</excludeArtifactIds>
-                  <failOnMissingClassifierArtifact>false</failOnMissingClassifierArtifact>
-                  <outputDirectory>${project.generatedDependencies}</outputDirectory>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-          <plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>build-helper-maven-plugin</artifactId>
-            <version>1.12</version>
-            <executions>
-              <execution>
-                <id>add-dependencies-source</id>
-                <phase>generate-sources</phase>
-                <goals>
-                  <goal>add-source</goal>
-                </goals>
-                <configuration>
-                  <sources>
-                    <source>${project.generatedDependencies}</source>
-                  </sources>
-                </configuration>
-              </execution>
-              <execution>
-                <id>add-dependencies-resource</id>
-                <phase>generate-resources</phase>
-                <goals>
-                  <goal>add-resource</goal>
-                </goals>
-                <configuration>
-                  <resources>
-                    <resource>
-                      <directory>${project.generatedDependencies}</directory>
-                      <excludes>
-                        <exclude>**/*.java</exclude>
-                      </excludes>
-                    </resource>
-                  </resources>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-  </profiles>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <version>3.1.1</version>
+        <executions>
+          <execution>
+            <id>src-dependencies</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>unpack-dependencies</goal>
+            </goals>
+            <configuration>
+              <classifier>sources</classifier>
+              <includeGroupIds>${project.groupId}</includeGroupIds>
+              <excludeArtifactIds>swingx-mavensupport</excludeArtifactIds>
+              <failOnMissingClassifierArtifact>false</failOnMissingClassifierArtifact>
+              <outputDirectory>${project.generatedDependencies}</outputDirectory>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <version>1.12</version>
+        <executions>
+          <execution>
+            <id>add-dependencies-source</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>add-source</goal>
+            </goals>
+            <configuration>
+              <sources>
+                <source>${project.generatedDependencies}</source>
+              </sources>
+            </configuration>
+          </execution>
+          <execution>
+            <id>add-dependencies-resource</id>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>add-resource</goal>
+            </goals>
+            <configuration>
+              <resources>
+                <resource>
+                  <directory>${project.generatedDependencies}</directory>
+                  <excludes>
+                    <exclude>**/*.java</exclude>
+                  </excludes>
+                </resource>
+              </resources>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
 </project>
