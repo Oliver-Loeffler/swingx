@@ -1,4 +1,4 @@
 # Maven output dirs
 swingx-*/target/
 
-/deployment/signingkey.gpg
+/deployment/signingkey.asc
