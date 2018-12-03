@@ -631,6 +631,7 @@ public abstract class InteractiveTestCase extends junit.framework.TestCase {
         return UIManager.getCrossPlatformLookAndFeelClassName().equals(lf.getClass().getName());
     }
     
-    
-  
+    public static boolean isCI() {
+        return System.getenv("CI").toLowerCase().equals("true");
+    }
 }

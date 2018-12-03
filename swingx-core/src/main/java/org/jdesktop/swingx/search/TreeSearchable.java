@@ -20,6 +20,7 @@
  */
 package org.jdesktop.swingx.search;
 
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -43,7 +44,7 @@ import org.jdesktop.swingx.decorator.Highlighter;
          * @param tree
          */
         public TreeSearchable(JXTree tree) {
-            this.tree = tree;
+            this.tree = Objects.requireNonNull(tree);
         }
 
         @Override
