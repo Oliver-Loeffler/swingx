@@ -4,7 +4,7 @@ after_success:
 - gpg2 --keyring=$TRAVIS_BUILD_DIR/pubring.gpg --no-default-keyring --import deployment/signingkey.asc
 - gpg2 --allow-secret-key-import --keyring=$TRAVIS_BUILD_DIR/secring.gpg --no-default-keyring
   --import deployment/signingkey.asc
-- mvn clean deploy --settings deployment/settings.xml -Dgpg.executable=gpg2 -Dgpg.keyname=76A42005CA98E08BB91F3830F941E9F172F06519
+- mvn clean deploy -P sign --settings deployment/settings.xml -Dgpg.executable=gpg2 -Dgpg.keyname=76A42005CA98E08BB91F3830F941E9F172F06519
   -Dgpg.passphrase=$PASSPHRASE -Dgpg.publicKeyring=$TRAVIS_BUILD_DIR/pubring.gpg -Dgpg.secretKeyring=$TRAVIS_BUILD_DIR/secring.gpg
 env:
   global:
