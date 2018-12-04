@@ -1,9 +1,6 @@
 # Readme - SwingLabs SwingX Project
-
-
 SwingX is a library of components and utilities extending the Java Swing library; read more at our website, 
-http://web.archive.org/web/20170206060459/https://swingx.java.net/, and Wiki page, https://web.archive.org/web/20120619142029/http://wiki.java.net/bin/view/Javadesktop/SwingLabsSwingX
-
+[https://swingx.java.net/](http://web.archive.org/web/20170206060459/https://swingx.java.net/), and Wiki page, [http://wiki.java.net/bin/view/Javadesktop/SwingLabsSwingX](https://web.archive.org/web/20120619142029/http://wiki.java.net/bin/view/Javadesktop/SwingLabsSwingX) 
 
 ## Getting the Latest Source
 1) Check out the lastest code
