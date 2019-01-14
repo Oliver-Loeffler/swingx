@@ -496,14 +496,16 @@ public class JXLabel extends JLabel implements BackgroundPaintable {
                         view.setSize(maxLineSpan, textR.height);
                     }
                 }
+                float ySpan;
                 switch (type) {
                 case 1:
-                    textR.height = (int)view.getMinimumSpan(View.Y_AXIS);
+                    ySpan = view.getMinimumSpan(View.Y_AXIS);
                     break;
                 default:
-                    textR.height = (int)view.getPreferredSpan(View.Y_AXIS);
+                    ySpan = view.getPreferredSpan(View.Y_AXIS);
                     break;
                 }
+                textR.height = (int)ySpan;
                 if (textR.height == 0) {
                     textR.height = getFont().getSize();
                 }
