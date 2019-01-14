@@ -384,24 +384,51 @@ public class JXLabel extends JLabel implements BackgroundPaintable {
 
     @Override
     public Dimension getPreferredSize() {
-        Dimension size = super.getPreferredSize();
-        //if (true) return size;
-        if (isPreferredSizeSet()) {
-            //log.fine("ret 0");
+        return this.getSize(0);
+    }
+
+    @Override
+    public Dimension getMinimumSize() {
+        return this.getSize(1);
+    }
+
+    private Dimension getSize(int type) {
+        Dimension size;
+        switch (type) {
+        case 1:
+            size = super.getMinimumSize();
+            break;
+        default:
+            size = super.getPreferredSize();
+            break;
+        }
+        boolean isSet;
+        switch (type) {
+        case 1:
+            isSet = isMinimumSizeSet();
+            break;
+        default:
+            isSet = isPreferredSizeSet();
+            break;
+        }
+        // if (true) return size;
+        if (isSet) {
+            // log.fine("ret 0");
             return size;
         } else if (this.textRotation != NORMAL) {
-            // #swingx-680 change the preferred size when rotation is set ... ideally this would be solved in the LabelUI rather then here
+            // #swingx-680 change the preferred size when rotation is set ...
+            // ideally this would be solved in the LabelUI rather then here
             double theta = getTextRotation();
-            size.setSize(rotateWidth(size, theta), rotateHeight(size,
-            theta));
+            size.setSize(rotateWidth(size, theta), rotateHeight(size, theta));
         } else {
-            // #swingx-780 preferred size is not set properly when parent container doesn't enforce the width
+            // #swingx-780 preferred size is not set properly when parent
+            // container doesn't enforce the width
             View view = getWrappingView();
             if (view == null) {
                 if (isLineWrap() && !MultiLineSupport.isHTML(getText())) {
                     getMultiLineSupport();
                     // view might get lost on LAF change ...
-                    putClientProperty(BasicHTML.propertyKey, 
+                    putClientProperty(BasicHTML.propertyKey,
                             MultiLineSupport.createView(this));
                     view = (View) getClientProperty(BasicHTML.propertyKey);
                 } else {
@@ -411,8 +438,8 @@ public class JXLabel extends JLabel implements BackgroundPaintable {
             Insets insets = getInsets();
             int dx = insets.left + insets.right;
             int dy = insets.top + insets.bottom;
-            //log.fine("INSETS:" + insets);
-            //log.fine("BORDER:" + this.getBorder());
+            // log.fine("INSETS:" + insets);
+            // log.fine("BORDER:" + this.getBorder());
             Rectangle textR = new Rectangle();
             Rectangle viewR = new Rectangle();
             textR.x = textR.y = textR.width = textR.height = 0;
@@ -425,15 +452,15 @@ public class JXLabel extends JLabel implements BackgroundPaintable {
             // 2) init textR
             boolean textIsEmpty = (getText() == null) || getText().equals("");
             int lsb = 0;
-            /* Unless both text and icon are non-null, we effectively ignore
-             * the value of textIconGap.
+            /*
+             * Unless both text and icon are non-null, we effectively ignore the
+             * value of textIconGap.
              */
             int gap;
             if (textIsEmpty) {
                 textR.width = textR.height = 0;
                 gap = 0;
-            }
-            else {
+            } else {
                 int availTextWidth;
                 gap = (iconR.width == 0) ? 0 : getIconTextGap();
 
@@ -449,12 +476,19 @@ public class JXLabel extends JLabel implements BackgroundPaintable {
                 }
                 if (getHorizontalTextPosition() == CENTER) {
                     availTextWidth = viewR.width;
-                }
-                else {
+                } else {
                     availTextWidth = viewR.width - (iconR.width + gap);
                 }
-                float xPrefSpan = view.getPreferredSpan(View.X_AXIS);
-                //log.fine("atw:" + availTextWidth + ", vps:" + xPrefSpan);
+                float xPrefSpan;
+                switch (type) {
+                case 1:
+                    xPrefSpan = view.getMinimumSpan(View.X_AXIS);
+                    break;
+                default:
+                    xPrefSpan = view.getPreferredSpan(View.X_AXIS);
+                    break;
+                }
+                // log.fine("atw:" + availTextWidth + ", vps:" + xPrefSpan);
                 textR.width = Math.min(availTextWidth, (int) xPrefSpan);
                 if (maxLineSpan > 0) {
                     textR.width = Math.min(textR.width, maxLineSpan);
@@ -462,73 +496,72 @@ public class JXLabel extends JLabel implements BackgroundPaintable {
                         view.setSize(maxLineSpan, textR.height);
                     }
                 }
-                textR.height = (int) view.getPreferredSpan(View.Y_AXIS);
+                switch (type) {
+                case 1:
+                    textR.height = (int)view.getMinimumSpan(View.Y_AXIS);
+                    break;
+                default:
+                    textR.height = (int)view.getPreferredSpan(View.Y_AXIS);
+                    break;
+                }
                 if (textR.height == 0) {
                     textR.height = getFont().getSize();
                 }
-                //log.fine("atw:" + availTextWidth + ", vps:" + xPrefSpan + ", h:" + textR.height);
+                // log.fine("atw:" + availTextWidth + ", vps:" + xPrefSpan + ",
+                // h:" + textR.height);
 
             }
             // 3) set text xy based on h/v text pos
             if (getVerticalTextPosition() == TOP) {
                 if (getHorizontalTextPosition() != CENTER) {
                     textR.y = 0;
-                }
-                else {
+                } else {
                     textR.y = -(textR.height + gap);
                 }
-            }
-            else if (getVerticalTextPosition() == CENTER) {
+            } else if (getVerticalTextPosition() == CENTER) {
                 textR.y = (iconR.height / 2) - (textR.height / 2);
-            }
-            else { // (verticalTextPosition == BOTTOM)
+            } else { // (verticalTextPosition == BOTTOM)
                 if (getVerticalTextPosition() != CENTER) {
                     textR.y = iconR.height - textR.height;
-                }
-                else {
+                } else {
                     textR.y = (iconR.height + gap);
                 }
             }
 
             if (getHorizontalTextPosition() == LEFT) {
                 textR.x = -(textR.width + gap);
-            }
-            else if (getHorizontalTextPosition() == CENTER) {
+            } else if (getHorizontalTextPosition() == CENTER) {
                 textR.x = (iconR.width / 2) - (textR.width / 2);
-            }
-            else { // (horizontalTextPosition == RIGHT)
+            } else { // (horizontalTextPosition == RIGHT)
                 textR.x = (iconR.width + gap);
             }
 
             // 4) shift label around based on its alignment
             int labelR_x = Math.min(iconR.x, textR.x);
             int labelR_width = Math.max(iconR.x + iconR.width,
-                                        textR.x + textR.width) - labelR_x;
+                    textR.x + textR.width) - labelR_x;
             int labelR_y = Math.min(iconR.y, textR.y);
             int labelR_height = Math.max(iconR.y + iconR.height,
-                                         textR.y + textR.height) - labelR_y;
+                    textR.y + textR.height) - labelR_y;
 
             int dax, day;
 
             if (getVerticalAlignment() == TOP) {
                 day = viewR.y - labelR_y;
-            }
-            else if (getVerticalAlignment() == CENTER) {
-                day = (viewR.y + (viewR.height / 2)) - (labelR_y + (labelR_height / 2));
-            }
-            else { // (verticalAlignment == BOTTOM)
+            } else if (getVerticalAlignment() == CENTER) {
+                day = (viewR.y + (viewR.height / 2))
+                        - (labelR_y + (labelR_height / 2));
+            } else { // (verticalAlignment == BOTTOM)
                 day = (viewR.y + viewR.height) - (labelR_y + labelR_height);
             }
 
             if (getHorizontalAlignment() == LEFT) {
                 dax = viewR.x - labelR_x;
-            }
-            else if (getHorizontalAlignment() == RIGHT) {
+            } else if (getHorizontalAlignment() == RIGHT) {
                 dax = (viewR.x + viewR.width) - (labelR_x + labelR_width);
-            }
-            else { // (horizontalAlignment == CENTER)
-                dax = (viewR.x + (viewR.width / 2)) -
-                     (labelR_x + (labelR_width / 2));
+            } else { // (horizontalAlignment == CENTER)
+                dax = (viewR.x + (viewR.width / 2))
+                        - (labelR_x + (labelR_width / 2));
             }
 
             textR.x += dax;
@@ -552,10 +585,10 @@ public class JXLabel extends JLabel implements BackgroundPaintable {
 
             rv.width += dx;
             rv.height += dy;
-            //log.fine("returning: " + rv);
+            // log.fine("returning: " + rv);
             return rv;
         }
-        //log.fine("ret 3");
+        // log.fine("ret 3");
         return size;
     }
 
