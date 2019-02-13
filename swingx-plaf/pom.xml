@@ -7,6 +7,7 @@
     <relativePath>../pom.xml</relativePath>
   </parent>
   <artifactId>swingx-plaf</artifactId>
+  <packaging>bundle</packaging>
   <name>SwingX Look and Feel Support</name>
   <dependencies>
     <dependency>

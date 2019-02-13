@@ -7,7 +7,7 @@
     <relativePath>../pom.xml</relativePath>
   </parent>
   <artifactId>swingx-autocomplete</artifactId>
-  <packaging>jar</packaging>
+  <packaging>bundle</packaging>
   <name>SwingX AutoComplete</name>
   <description>AutoComplete functionality for text components and combo boxes.</description>
   <dependencies>

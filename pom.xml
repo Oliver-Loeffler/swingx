@@ -136,6 +136,31 @@
               <autoReleaseAfterClose>true</autoReleaseAfterClose>
           </configuration>
       </plugin>
+      <plugin>
+          <groupId>org.apache.felix</groupId>
+          <artifactId>maven-bundle-plugin</artifactId>
+          <version>4.1.0</version>
+          <extensions>true</extensions>
+          <configuration>
+            <instructions>
+              <Export-Package>
+                org.jdesktop.swingx.plaf;-split-package:=merge-last,
+                org.jdesktop.swingx.plaf.basic;-split-package:=merge-last,
+                org.jdesktop.swingx.plaf.metal;-split-package:=merge-last,
+                org.jdesktop.swingx.plaf.nimbus;-split-package:=merge-last,
+                org.jdesktop.swingx.plaf.windows;-split-package:=merge-last,
+                org.jdesktop.swingx.plaf.macosx;-split-package:=merge-last,
+                org.jdesktop.swingx.plaf.linux;-split-package:=merge-last,
+                org.jdesktop.swingx.plaf.misc;-split-package:=merge-last,
+                org.jdesktop.beans;-split-package:=merge-last,
+                org.jdesktop.swingx.util;-split-package:=merge-last,
+                org.jdesktop.swingx.*,
+                org.jdesktop.beans.*
+              </Export-Package>
+            </instructions>
+          </configuration>
+      </plugin>
+
     </plugins>
   </build>
   <dependencies>

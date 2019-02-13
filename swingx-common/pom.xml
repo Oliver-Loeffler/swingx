@@ -7,7 +7,7 @@
     <relativePath>../pom.xml</relativePath>
   </parent>
   <artifactId>swingx-common</artifactId>
-  <packaging>jar</packaging>
+  <packaging>bundle</packaging>
   <name>SwingX Commons</name>
   <description>Code common to all SwingX modules.</description>
   <dependencies>

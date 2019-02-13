@@ -7,7 +7,7 @@
     <relativePath>../pom.xml</relativePath>
   </parent>
   <artifactId>swingx-all</artifactId>
-  <packaging>jar</packaging>
+  <packaging>bundle</packaging>
   <name>SwingX Complete</name>
   <description>A Maven project to aggregate all modules into a single artifact.</description>
   <properties>
