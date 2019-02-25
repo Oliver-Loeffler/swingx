@@ -1319,6 +1319,15 @@ public class JXLabel extends JLabel implements BackgroundPaintable {
 
         @Override
         public float getPreferredSpan(int axis) {
+            return getSpanImpl(axis, 0);
+        }
+
+        @Override
+        public float getMinimumSpan(int axis) {
+            return getSpanImpl(axis, 1);
+        }
+
+        private float getSpanImpl(int axis, int type){
             if (axis == X_AXIS) {
                 //log.fine("inv: " + invalidated + ", w:" + width + ", vw:" + host.getVisibleRect());
                 // width currently laid out to
@@ -1333,9 +1342,22 @@ public class JXLabel extends JLabel implements BackgroundPaintable {
                         //setSize(w - (host.getOccupiedWidth()+20), host.getVisibleRect().height);
                     }
                 }
-                return width > 0 ? width : view.getPreferredSpan(axis);
+                if(width > 0){
+                    return width;
+                }else{
+                    return getViewSpan(axis, type);
+                }
             } else {
-                return  view.getPreferredSpan(axis);
+                return getViewSpan(axis, type);
+            }
+        }
+
+        private float getViewSpan(int axis, int type){
+            switch (type){
+                case 1:
+                    return view.getMinimumSpan(axis);
+                default:
+                    return view.getPreferredSpan(axis);
             }
         }
 
