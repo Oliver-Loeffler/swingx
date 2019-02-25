@@ -3,7 +3,7 @@
   <parent>
     <artifactId>swingx-project</artifactId>
     <groupId>at.swimmesberger</groupId>
-    <version>1.6.8-SNAPSHOT</version>
+    <version>1.6.9-SNAPSHOT</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
   <artifactId>swingx-experimental</artifactId>
