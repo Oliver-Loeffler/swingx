@@ -8,7 +8,6 @@ trigger:
 
 pool:
   vmImage: 'ubuntu-16.04'
-container: ubuntu:18.04
 steps:
 - task: DownloadSecureFile@1
   name: signingkey
@@ -19,10 +18,10 @@ steps:
   inputs:
     secureFile: 'signingkey.private.asc'
 - script: |-
-    apt-get install gnupg
+    sudo apt-get install gnupg
     gpg --keyring=$HOME/gpg/pubring.gpg --no-default-keyring --batch --import $(signingkey.secureFilePath)
     gpg --keyring=$HOME/gpg/secring.gpg --no-default-keyring --batch --allow-secret-key-import --import $(signingkey_private.secureFilePath)
-  displayName: 'Installing gpg2'
+  displayName: 'Installing gpg'
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'
