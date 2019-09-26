@@ -16,11 +16,11 @@ steps:
     secureFile: 'signingskey_all.asc'
 - script: |-
     sudo apt install gnupg2 -y
-    export GNUPGHOME=$(Agent.BuildDirectory)/gpg
+    export GNUPGHOME=$(Agent.TempDirectory)/gpg
     export GPG_TTY=$(tty)
-    rm -rf $(Agent.BuildDirectory)/gpg
-    gpg2 --keyring=$(Agent.BuildDirectory)/gpg/pubring.gpg --no-default-keyring --batch --import $(signingkey.secureFilePath)
-    gpg2 --keyring=$(Agent.BuildDirectory)/gpg/secring.gpg --no-default-keyring --batch --allow-secret-key-import --import $(signingkey.secureFilePath)
+    rm -rf $(Agent.TempDirectory)/gpg
+    gpg2 --keyring=$(Agent.TempDirectory)/gpg/pubring.gpg --no-default-keyring --batch --import $(signingkey.secureFilePath)
+    gpg2 --keyring=$(Agent.TempDirectory)/gpg/secring.gpg --no-default-keyring --batch --allow-secret-key-import --import $(signingkey.secureFilePath)
   displayName: 'Installing gpg2'
 - task: Maven@3
   inputs:
@@ -39,5 +39,5 @@ steps:
       -DskipTests
       -Dgpg.keyname=$(signingkey_id)
       -Dgpg.passphrase=$(signingkey_passphrase)
-      -Dgpg.publicKeyring=$(Agent.BuildDirectory)/gpg/pubring.gpg
-      -Dgpg.secretKeyring=$(Agent.BuildDirectory)/gpg/secring.gpg
+      -Dgpg.publicKeyring=$(Agent.TempDirectory)/gpg/pubring.gpg
+      -Dgpg.secretKeyring=$(Agent.TempDirectory)/gpg/secring.gpg
