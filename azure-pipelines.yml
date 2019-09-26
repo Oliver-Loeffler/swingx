@@ -19,7 +19,7 @@ steps:
   inputs:
     secureFile: 'signingkey.private.asc'
 - script: |-
-    sudo apt install gnupg
+    apt install gnupg
     gpg --keyring=$HOME/gpg/pubring.gpg --no-default-keyring --batch --import $(signingkey.secureFilePath)
     gpg --keyring=$HOME/gpg/secring.gpg --no-default-keyring --batch --allow-secret-key-import --import $(signingkey_private.secureFilePath)
   displayName: 'Installing gpg2'
