@@ -18,6 +18,8 @@ steps:
   name: signingkey
   inputs:
     secureFile: 'signingkey.private.gpg'
+- script: 'sudo apt install gnupg2'
+  displayName: "Installing gpg2"
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'
