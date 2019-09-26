@@ -10,6 +10,7 @@ pool:
   vmImage: 'ubuntu-16.04'
 variables:
 - group: Security
+
 steps:
 - task: DownloadSecureFile@1
   name: signingkey
@@ -38,6 +39,8 @@ steps:
     options: >-
       -P sign
       --settings deployment/settings.xml
+      -DARTIFACTORY_USERNAME=$(ARTIFACTORY_USERNAME)
+      -DARTIFACTORY_PASSWORD=$(ARTIFACTORY_PASSWORD)
       -Dgpg.executable=gpg
       -DskipTests
       -Dgpg.keyname=$(signingkey_id)
