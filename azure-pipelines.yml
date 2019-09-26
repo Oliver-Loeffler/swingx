@@ -11,15 +11,14 @@ pool:
 
 steps:
 - task: DownloadSecureFile@1
-  name: signingkey_private
-  inputs:
-    secureFile: 'signingkey.private.gpg'
-- task: DownloadSecureFile@1
   name: signingkey
   inputs:
-    secureFile: 'signingkey.private.gpg'
-- script: 'sudo apt install gnupg2 -y'
-  displayName: "Installing gpg2"
+    secureFile: 'signingskey_all.asc'
+- script: |-
+    sudo apt install gnupg2 -y
+    gpg2 --keyring=$(Agent.BuildDirectory)/pubring.gpg --no-default-keyring --import $(signingkey.secureFilePath)
+    gpg2 --keyring=$(Agent.BuildDirectory)/secring.gpg --no-default-keyring --allow-secret-key-import --import $(signingkey.secureFilePath)
+  displayName: 'Installing gpg2'
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'
@@ -30,4 +29,12 @@ steps:
     publishJUnitResults: false
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'clean deploy'
-    options: '-P sign --settings deployment/settings.xml -Dgpg.executable=gpg2 -DskipTests -Dgpg.keyname=7F1F5043C210ADFE -Dgpg.passphrase=$(signingkey_passphrase) -Dgpg.publicKeyring=$(signingkey.secureFilePath) -Dgpg.secretKeyring=$(signingkey_private.secureFilePath)'
+    options: >-
+      -P sign
+      --settings deployment/settings.xml
+      -Dgpg.executable=gpg2
+      -DskipTests
+      -Dgpg.keyname=$(signingkey_id)
+      -Dgpg.passphrase=$(signingkey_passphrase)
+      -Dgpg.publicKeyring=$(Agent.BuildDirectory)/pubring.gpg
+      -Dgpg.secretKeyring=$(Agent.BuildDirectory)/secring.gpg
