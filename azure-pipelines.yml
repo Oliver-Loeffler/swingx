@@ -19,9 +19,9 @@ steps:
     secureFile: 'signingkey.private.asc'
 - script: |-
     sudo apt-get install gnupg
-    mkdir -p $HOME/gpg
-    gpg --keyring=$HOME/gpg/pubring.gpg --no-default-keyring --batch --import $(signingkey.secureFilePath)
-    gpg --keyring=$HOME/gpg/secring.gpg --no-default-keyring --batch --allow-secret-key-import --import $(signingkey_private.secureFilePath)
+    mkdir -p $(Agent.HomeDirectory)/gpg
+    gpg --keyring=$(Agent.HomeDirectory)/gpg/pubring.gpg --no-default-keyring --batch --import $(signingkey.secureFilePath)
+    gpg --keyring=$(Agent.HomeDirectory)/gpg/secring.gpg --no-default-keyring --batch --allow-secret-key-import --import $(signingkey_private.secureFilePath)
   displayName: 'Installing gpg'
 - task: Maven@3
   inputs:
@@ -40,5 +40,5 @@ steps:
       -DskipTests
       -Dgpg.keyname=$(signingkey_id)
       -Dgpg.passphrase=$(signingkey_passphrase)
-      -Dgpg.publicKeyring=$HOME/gpg/pubring.gpg
-      -Dgpg.secretKeyring=$HOME/gpg/secring.gpg
+      -Dgpg.publicKeyring=$(Agent.HomeDirectory)/gpg/pubring.gpg
+      -Dgpg.secretKeyring=$(Agent.HomeDirectory)/gpg/secring.gpg
