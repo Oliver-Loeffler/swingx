@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <artifactId>swingx-demos</artifactId>
-    <groupId>org.swinglabs.swingx</groupId>
+    <groupId>com.smartbow</groupId>
     <version>1.6.9-SNAPSHOT</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
