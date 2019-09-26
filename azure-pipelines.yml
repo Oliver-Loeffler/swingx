@@ -38,7 +38,7 @@ steps:
     goals: 'clean deploy'
     options: >-
       -P sign
-      --settings deployment/settings.xml
+      -s $(Build.SourcesDirectory)/deployment/settings.xml
       -DARTIFACTORY_USERNAME=$(ARTIFACTORY_USERNAME)
       -DARTIFACTORY_PASSWORD=$(ARTIFACTORY_PASSWORD)
       -Dgpg.executable=gpg
