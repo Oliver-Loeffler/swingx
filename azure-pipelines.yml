@@ -16,6 +16,7 @@ steps:
     secureFile: 'signingskey_all.asc'
 - script: |-
     sudo apt install gnupg2 -y
+    export GNUPGHOME=$(Agent.BuildDirectory)
     gpg2 --keyring=$(Agent.BuildDirectory)/pubring.gpg --no-default-keyring --import $(signingkey.secureFilePath)
     gpg2 --keyring=$(Agent.BuildDirectory)/secring.gpg --no-default-keyring --allow-secret-key-import --import $(signingkey.secureFilePath)
   displayName: 'Installing gpg2'
