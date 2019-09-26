@@ -1,4 +1,9 @@
 # Maven output dirs
-swingx-*/target/
-
+/swingx-*/target/
+/swingx-*/.classpath
+/swingx-*/.project
+/swingx-*/.settings/**
+/.idea
+/.settings
 /deployment/signingkey.asc
+/target
