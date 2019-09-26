@@ -19,6 +19,7 @@ steps:
     export GNUPGHOME=$(Agent.TempDirectory)/gpg
     export GPG_TTY=$(tty)
     rm -rf $(Agent.TempDirectory)/gpg
+    mkdir -p $(Agent.TempDirectory)/gpg
     gpg2 --keyring=$(Agent.TempDirectory)/gpg/pubring.gpg --no-default-keyring --batch --import $(signingkey.secureFilePath)
     gpg2 --keyring=$(Agent.TempDirectory)/gpg/secring.gpg --no-default-keyring --batch --allow-secret-key-import --import $(signingkey.secureFilePath)
   displayName: 'Installing gpg2'
