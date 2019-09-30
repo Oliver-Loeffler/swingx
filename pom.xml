@@ -30,18 +30,18 @@
     </developer>
   </developers>
   <distributionManagement>
-    <snapshotRepository>
+    <repository>
       <id>sbMaven</id>
       <url>
         https://artifactory.smartbow.cloud/artifactory/libs-release-local/
       </url>
-    </snapshotRepository>
-    <repository>
+    </repository>
+    <snapshotRepository>
       <id>sbMavenSnapshopt</id>
       <url>
         https://artifactory.smartbow.cloud/artifactory/libs-snapshot-local/
       </url>
-    </repository>
+    </snapshotRepository>
   </distributionManagement>
   <build>
     <plugins>
