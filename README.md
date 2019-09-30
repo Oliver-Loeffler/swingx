@@ -5,7 +5,7 @@ SwingX is a library of components and utilities extending the Java Swing library
 ## Getting the Latest Source
 1) Check out the lastest code
 Download the latest release from our git repository
-https://github.com/swimmesberger/swingx.git
+https://github.com/smartbow-gmbh/swingx
 
 ## Building the Source
 SwingX relies on Maven for controlling compilation, building docs, testing, etc. You can use our POM files to build the project, some IDEs can directly invoke Maven for you.
