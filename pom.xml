@@ -33,13 +33,13 @@
     <repository>
       <id>sbMaven</id>
       <url>
-        https://artifactory.smartbow.cloud/artifactory/libs-release-local/
+        ${env.ARTIFACTORY_URL}/${env.ARTIFACTORY_REPO}
       </url>
     </repository>
     <snapshotRepository>
       <id>sbMavenSnapshopt</id>
       <url>
-        https://artifactory.smartbow.cloud/artifactory/libs-snapshot-local/
+        ${env.ARTIFACTORY_URL}/${env.ARTIFACTORY_SNAPSHOT_REPO}
       </url>
     </snapshotRepository>
   </distributionManagement>
