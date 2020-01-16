@@ -4,7 +4,7 @@
   <artifactId>swingx-project</artifactId>
   <packaging>pom</packaging>
   <name>SwingX</name>
-  <version>1.6.9-SNAPSHOT</version>
+  <version>1.6.9</version>
   <url>https://github.com/smartbow-gmbh/swingx</url>
   <description>Contains extensions to the Swing GUI toolkit, including new and enhanced components that provide functionality commonly required by rich client applications.</description>
   <licenses>
