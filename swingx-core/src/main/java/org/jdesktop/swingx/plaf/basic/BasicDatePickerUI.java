@@ -1308,7 +1308,7 @@ public class BasicDatePickerUI extends DatePickerUI {
 
             _forwardReleaseEvent = true;
 
-            if (!popup.isShowing()) {
+            if (popup == null || !popup.isShowing()) {
                 return;
             }
 
